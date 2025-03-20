@@ -1,0 +1,87 @@
+---
+title: "coding challenge 5"
+author: "Katie Clouse"
+date: "2025-03-20"
+output: 
+    pdf_document:
+      md_document:
+        gfm: variant 
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Question 1
+```{r}
+div.data <- read.csv("C:/Users/katie/Downloads/DiversityData.csv")
+meta.data<- read.csv("C:/Users/katie/Downloads/Metadata.csv")
+library(tidyverse)
+```
+#### Question 2
+```{r}
+alpha <- merge.data.frame(div.data, meta.data, by = "Code") #you can use the merge() function to add data frames together by a specific column
+```
+#### Question 3
+```{r}
+alpha_even <- alpha %>%
+  mutate(Pielou = (shannon/log(richness)))
+```
+
+#### Question 4
+```{r}
+alpha_average <- alpha_even %>%
+  group_by(Crop, Time_Point) %>%
+  summarise(Mean.even = mean(Pielou),
+            n = n(),
+            sd.dev = sd(Pielou))%>%
+  mutate(std.err = sd.dev/sqrt(n))
+```
+
+#### Question 5
+```{r}
+alpha_average2 <- alpha_average %>%
+  select(Time_Point, Crop, Mean.even) %>%
+  pivot_wider(names_from = Crop, values_from = Mean.even) %>%
+  mutate(diff.cotton.even = Soil - Cotton) %>%
+  mutate(diff.soybean.even = Soil - Soybean)
+```
+
+#### Question 6
+```{r}
+alpha_average2%>%
+  select(Time_Point, diff.cotton.even, diff.soybean.even)%>%
+  pivot_longer(c(diff.cotton.even, diff.soybean.even), names_to = "diff")%>%
+  ggplot(aes(x = Time_Point, y = value, color = diff)) +  
+  geom_line() +
+  xlab("Time (hrs)") +
+  ylab("Difference from soil in Pielou's evenness") 
+```
+#### Question 7
+```{r}
+[Link to github]()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
