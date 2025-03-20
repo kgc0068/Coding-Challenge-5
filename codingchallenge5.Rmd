@@ -4,9 +4,6 @@ author: "Katie Clouse"
 date: "2025-03-20"
 output: 
     pdf_document:
-      md_document:
-        gfm: variant 
-
 ---
 
 ```{r setup, include=FALSE}
@@ -59,8 +56,7 @@ alpha_average2%>%
   ylab("Difference from soil in Pielou's evenness") 
 ```
 #### Question 7
-```{r}
-[Link to github]()
+[Link to GitHub](https://github.com/kgc0068/Coding-Challenge-5.git)
 ```
 
 
